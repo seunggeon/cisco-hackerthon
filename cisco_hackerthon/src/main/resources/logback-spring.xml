@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="org.springframework.web" level="DEBUG"/>
+    <springProfile name="dev">
+        <property resource="application-dev.properties" />
+    </springProfile>
+    <springProfile name="release">
+        <property resource="application-release.properties" />
+    </springProfile>
+    <property name="LOG_PACKAGE_NAME"
+              value="${log.config.packagename}" />
+    <!-- log file path -->
+    <property name="LOG_PATH" value="${log.config.path}" />
+    <!-- log file name -->
+    <property name="LOG_FILE_NAME" value="${log.config.filename}" />
+    <!-- log days -->
+    <property name="LOG_DAYS" value="${log.config.days}" />
+    <!-- log filesize log -->
+    <property name="LOG_FILESIZE_LOG"
+              value="${log.config.filesizelog}" />
+    <!-- log filesize zip -->
+    <property name="LOG_FILESIZE_ZIP"
+              value="${log.config.filesizezip}" />
+    <!-- log filesize total -->
+    <property name="LOG_TOTAL_FILESIZE"
+              value="${log.config.totalfilesize}" />
+    <!-- log min count -->
+    <property name="LOG_FILE_MIN" value="${log.config.min}" />
+    <!-- log max count -->
+    <property name="LOG_FILE_MAX" value="${log.config.max}" />
+    <!-- pattern -->
+    <property name="LOG_PATTERN"
+              value="%-5level %d{yy-MM-dd HH:mm:ss} [%logger{0}:%line] - %msg%n" />
+    <property name="LOG_PATTERN_LIVE"
+              value="%-5level %d{yy-MM-dd HH:mm:ss} [%method:%line] - %msg%n" />
+    <appender name="console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <logger name="jdbc.resultsettable" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger name="jdbc.resultset" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="console" />
+        <appender-ref ref="FILE" />
+    </logger>
+    <logger name="jdbc.sqlonly" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="FILE" />
+    </logger>
+<!--    <if condition='property("log.config.mode").equals("release")'>-->
+<!--        <then>-->
+<!--            <logger name="${LOG_PACKAGE_NAME}" level="INFO" />-->
+<!--            <logger name="org.springframework" additivity="false">-->
+<!--                <level value="WARN" />-->
+<!--                <appender-ref ref="console" />-->
+<!--            </logger>-->
+<!--            <root level="INFO">-->
+<!--                <appender-ref ref="console" />-->
+<!--                <appender-ref ref="FILE" />-->
+<!--            </root>-->
+<!--        </then>-->
+<!--        <else>-->
+<!--            <logger name="${LOG_PACKAGE_NAME}" level="DEBUG" />-->
+<!--            <logger name="org.springframework" additivity="false">-->
+<!--                <level value="INFO" />-->
+<!--                <appender-ref ref="console" />-->
+<!--                <appender-ref ref="FILE" />-->
+<!--            </logger>-->
+<!--            <root level="INFO">-->
+<!--                <appender-ref ref="console" />-->
+<!--                <appender-ref ref="FILE" />-->
+<!--            </root>-->
+<!--        </else>-->
+<!--    </if>-->
+</configuration>

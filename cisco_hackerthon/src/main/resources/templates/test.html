@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>유치원 행동패턴</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Gamja Flower', cursive;
+            background-color: #ffe6f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #ff69b4;
+        }
+        .heart-icon {
+            color: #ff69b4;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .info-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-size: 24px;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .school-name {
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>우리 철수의 행동 분석 in 역할 놀이 영역</h1>
+    <div class="heart-icon">&hearts;</div>
+    <div class="info-label">최근 머문 시간 :</div>
+    <div class="info-value" th:text="${duration_min + '분 ' + duration_sec + '초'}"></div>
+
+    <div class="info-label">방문 빈도 수:</div>
+    <div class="info-value" th:text="${freq}">5</div>
+
+    <div class="school-name">무궁유교</div>
+</div>
+
+</body>
+</html>
